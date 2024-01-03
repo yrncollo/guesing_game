@@ -1,8 +1,5 @@
-use colored::*;
-use std::io;
 use rand::Rng;
-use std::cmp::Ordering;
-
+mod game_logic;
 
 fn main() {
 
@@ -10,31 +7,6 @@ fn main() {
 
     println!("The secret_number is {secret_number}");
 
-   loop {
-       
-        println!("Guess the number");
-        let mut guess = String::new();
+    game_logic::run(secret_number);
 
-        io::stdin()
-            .read_line(&mut guess)
-            .expect("Failed to read line");
-
-
-        let guess: u32 = match guess.trim().parse(){
-            Ok(num) => num,
-            Err(_) => continue,
-
-        };
-
-        println!("You have guessed: {guess}");
-
-        match guess.cmp(&secret_number){
-            Ordering::Less => println!("{}", "Almost there".yellow()),
-            Ordering::Greater => println!("{}", "Umeenda sana jameniii!!!! ".blue()),
-            Ordering::Equal => {
-                println!("{}", "You win".red().bold());
-                break;
-            }
-        }
-   } 
 }
